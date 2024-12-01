@@ -1,0 +1,18 @@
+<?php
+namespace plugin\webmanAdmin\app\model;
+
+class #upperClassName# extends Model
+{
+    protected $table = '#tableName#';
+
+    protected $primaryKey = 'id';
+
+    protected$fillable = #tableColumnArray#;
+
+    protected $casts = ['id' => 'integer'];
+
+    protected $attributes = [
+        #defaultAttributes#
+    ];
+
+}

@@ -1,0 +1,4 @@
+            $path = $this->dealFiletype($request->file("#field#"));
+            if($path){
+                $modelData['#field#'] = $path;
+            }

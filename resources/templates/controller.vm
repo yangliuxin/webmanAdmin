@@ -1,0 +1,113 @@
+<?php
+declare(strict_types=1);
+namespace plugin\webmanAdmin\app\controller;
+
+use plugin\webmanAdmin\app\model\#upperClassName#;
+use Yangliuxin\Utils\Utils\ServiceConstant;
+use plugin\webmanAdmin\app\middleware\AuthMiddleware;
+use plugin\webmanAdmin\app\annotations\Middleware;
+use plugin\webmanAdmin\app\annotations\RequestMapping;
+use support\Request;
+use plugin\webmanAdmin\app\utils\PermissionCheck;
+
+#[Middleware(AuthMiddleware::class)]
+class #upperClassName#Controller extends AbstractAdminController
+{
+    #[RequestMapping('/admin/#lowerPathName#',  methods: ['GET'])]
+    public function list#upperClassName#(Request $request)
+    {
+        $this->_init($request);
+        PermissionCheck::check($this->bladeData['user']['id'], '#lowerPathName#');
+        $where = [];
+        $id = $request->input('id', 0);
+        if($id){
+            $where[] = ['id', '=' ,$id];
+        }
+        $#lowerClassName#List = #upperClassName#::where($where)->orderBy('id', 'asc')->paginate(20);
+        $this->bladeData['#lowerClassName#List'] = $#lowerClassName#List;
+        $this->bladeData['pageNo'] = $#lowerClassName#List->currentPage();
+        $totalPages = floor($#lowerClassName#List->total() / $#lowerClassName#List->perPage()) + ($#lowerClassName#List->total() % $#lowerClassName#List->perPage() == 0 ? 0 : 1);
+        $this->bladeData['totalPages'] = $totalPages;
+        $this->bladeData['total'] = $#lowerClassName#List->total();
+        $this->bladeData['pageNums'] = $#lowerClassName#List->perPage();
+        return view('#lowerPathName#/list', $this->bladeData);
+    }
+
+    #[RequestMapping('/admin/#lowerPathName#/create',  methods: ['GET', 'POST'])]
+    public function create#upperClassName#(Request $request)
+    {
+        $this->_init($request);
+        PermissionCheck::check($this->bladeData['user']['id'], '#lowerPathName#');
+        $data = new #upperClassName#();
+        $this->bladeData["error"] = [];
+        $this->bladeData['data'] = $data;
+        if($request->method() == "POST"){
+            $csrf_token = $request->input('csrf_token');
+            if(!$csrf_token || $csrf_token != $request->session()->get('csrf_token')){
+                $errors['title'] = 'csrf token error';
+                return view('#lowerPathName#/edit', ['error' => $errors]);
+            }
+
+#modelRequest#
+
+            #upperClassName#::create($modelData);
+            return redirect("/admin/#lowerPathName#");
+        }
+        return view('#lowerPathName#/edit', $this->bladeData);
+    }
+
+    #[RequestMapping('/admin/#lowerPathName#/edit/{id}',  methods: ['GET', 'POST'])]
+    public function edit#upperClassName#(Request $request, $id)
+    {
+        if(!$id){
+            return redirect('/admin/#lowerPathName#');
+        }
+        $this->_init($request);
+        PermissionCheck::check($this->bladeData['user']['id'], '#lowerPathName#');
+        $data = #upperClassName#::find($id);
+        $this->bladeData["error"] = [];
+        $this->bladeData['data'] = $data;
+        if($request->method() == "POST"){
+            $csrf_token = $request->input('csrf_token');
+            if(!$csrf_token || $csrf_token != $request->session()->get('csrf_token')){
+                $errors['title'] = 'csrf token error';
+                return view('#lowerPathName#/edit', ['error' => $errors]);
+            }
+#modelRequest#
+
+            #upperClassName#::where('id', $id)->update($modelData);
+            return redirect("/admin/#lowerPathName#");
+        }
+
+        return view('#lowerPathName#/edit', $this->bladeData);
+    }
+
+    #[RequestMapping('/admin/#lowerPathName#/delete/{id}',  methods: ['DELETE'])]
+    public function delete#upperClassName#(Request $request, $id)
+    {
+        if(!$id){
+            return json(ServiceConstant::error(ServiceConstant::MSG_PARAM_ERROR));
+        }
+        $this->init($request);
+        PermissionCheck::check($this->bladeData['user']['id'], '#lowerPathName#');
+        #upperClassName#::where('id', $id)->delete();
+        return json(ServiceConstant::success());
+    }
+
+    #[RequestMapping('/admin/#lowerPathName#/export', methods: ['GET'])]
+    public function export(Request $request)
+    {
+        $this->init($request);
+        PermissionCheck::check($this->bladeData['user']['id'], '#lowerPathName#');
+        $exportTitle = '#exportTitle#';
+        $exportContent = $exportTitle . "\n";
+        $list = #upperClassName#::all()->toArray();
+        foreach ($list as $key => $val) {
+            $exportContent .= join(",", array_values($val)) . "\n";
+        }
+        $headers[] = ['Content-type', 'application/vnd.ms-excel'];
+        $headers[] = ['Content-Disposition', 'inline; filename=#lowerPathName#.csv'];
+        return response((string)$exportContent, 200, $headers);
+
+    }
+}

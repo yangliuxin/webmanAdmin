@@ -1,0 +1,6 @@
+            if($request->post("#field#") == ''){
+                $errors['#field#'] = '#fieldComment#不许为空';
+                $this->bladeData["error"] = $errors;
+                return view('#lowerPathName#/edit', $this->bladeData);
+            }
+            $modelData['#field#'] = $request->post('#field#');
