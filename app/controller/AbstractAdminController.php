@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace plugin\webmanAdmin\app\controller;
 
 use GuzzleHttp\Psr7\MultipartStream;
-use Liuxinyang\HyperfAdmin\utils\PermissionCheck;
 use plugin\webmanAdmin\app\model\AdminMenus;
 use plugin\webmanAdmin\app\model\AdminRolePermissions;
 use plugin\webmanAdmin\app\model\AdminRoleUsers;

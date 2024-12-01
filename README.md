@@ -1,4 +1,5 @@
 ### 安裝
+    composer create-project workerman/webman
     composer require -W illuminate/database illuminate/pagination illuminate/events symfony/var-dumper laravel/serializable-closure
     composer require doctrine/annotations
     composer require yangliuxin/utils
