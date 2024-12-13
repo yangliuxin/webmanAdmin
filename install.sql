@@ -44,7 +44,7 @@ INSERT INTO `admin_menus` VALUES (3, 1, 2, '用户管理', 'user', 'fa-user', 'u
 INSERT INTO `admin_menus` VALUES (4, 1, 2, '角色管理', 'role', 'fa-user-md', 'roles', 3, '2024-04-16 19:43:50', '2024-04-16 19:43:50');
 INSERT INTO `admin_menus` VALUES (5, 1, 2, '菜单模块', 'menu', 'fa-bars', 'menu', 1, '2024-04-17 12:22:12', '2024-04-17 12:22:12');
 INSERT INTO `admin_menus` VALUES (7, 1, 6, '脚手架', 'scaffold', 'fa-keyboard-o', 'scaffold', 1, '2024-04-27 10:39:40', '2024-04-27 10:39:40');
-INSERT INTO `admin_menus` VALUES (14, 1, 0, '系统工具', 'project', 'fa-anchor', '', 4, '2024-06-11 18:45:10', '2024-11-30 21:31:05');
+INSERT INTO `admin_menus` VALUES (14, 1, 0, '系统工具', 'project', 'fa-anchor', '', 100, '2024-06-11 18:45:10', '2024-11-30 21:31:05');
 INSERT INTO `admin_menus` VALUES (15, 1, 14, '脚手架', 'scaffold', 'fa-keyboard-o', 'scaffold', 1, '2024-06-11 18:45:37', '2024-11-30 21:33:51');
 
 -- ----------------------------
