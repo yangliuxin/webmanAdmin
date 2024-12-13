@@ -88,7 +88,7 @@ class #upperClassName#Controller extends AbstractAdminController
         if(!$id){
             return json(ServiceConstant::error(ServiceConstant::MSG_PARAM_ERROR));
         }
-        $this->init($request);
+        $this->_init($request);
         PermissionCheck::check($this->bladeData['user']['id'], '#lowerPathName#');
         #upperClassName#::where('id', $id)->delete();
         return json(ServiceConstant::success());
@@ -97,7 +97,7 @@ class #upperClassName#Controller extends AbstractAdminController
     #[RequestMapping('/admin/#lowerPathName#/export', methods: ['GET'])]
     public function export(Request $request)
     {
-        $this->init($request);
+        $this->_init($request);
         PermissionCheck::check($this->bladeData['user']['id'], '#lowerPathName#');
         $exportTitle = '#exportTitle#';
         $exportContent = $exportTitle . "\n";
